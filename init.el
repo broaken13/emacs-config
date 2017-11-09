@@ -18,7 +18,9 @@
     js2-refactor
     xref-js2
     company-tern
-    material-theme))
+    material-theme
+    yoshi-theme
+    zenburn-theme))
 
 (mapc #'(lambda (package)
 	  (unless (package-installed-p package)
@@ -73,7 +75,7 @@
 
 
 ;;(setq inhibit-startup-message t) ;; hide startup message
-(load-theme 'material t) ;; load theme
+(load-theme 'yoshi t) ;; load theme
 (global-linum-mode t) ;; line numbers global
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
