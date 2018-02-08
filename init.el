@@ -14,13 +14,16 @@
     elpy
     flycheck
     py-autopep8
+    htmlize
+    impatient-mode
+    emmet-mode
     js2-mode
     js2-refactor
     xref-js2
     company-tern
     material-theme
     yoshi-theme
-    zenburn-theme))
+    ))
 
 (mapc #'(lambda (package)
 	  (unless (package-installed-p package)
@@ -71,7 +74,9 @@
 (define-key tern-mode-keymap (kbd "M-.") nil)
 (define-key tern-mode-keymap (kbd "M-,") nil)
 
-
+;; HTML/CSS
+(add-hook 'sgml-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook 'emmet-mode)
 
 
 ;;(setq inhibit-startup-message t) ;; hide startup message
