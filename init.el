@@ -23,6 +23,8 @@
     company-tern
     material-theme
     yoshi-theme
+    typescript-mode
+    tide
     ))
 
 (mapc #'(lambda (package)
@@ -78,6 +80,20 @@
 (add-hook 'sgml-mode-hook 'emmet-mode)
 (add-hook 'css-mode-hook 'emmet-mode)
 
+;; Typescript
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1))
+
+(setq company-tooltip-align-annotations t)
+
+(add-hook 'before-save-hook 'tide-format-before-save)
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+
 
 ;;(setq inhibit-startup-message t) ;; hide startup message
 (load-theme 'yoshi t) ;; load theme
@@ -94,3 +110,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'dired-find-alternate-file 'disabled nil)
