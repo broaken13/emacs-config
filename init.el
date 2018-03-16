@@ -11,12 +11,16 @@
     helm
     magit
     company
+    ace-window
+    multiple-cursors
+    smartparens
     elpy
     flycheck
     py-autopep8
     htmlize
     impatient-mode
     emmet-mode
+    web-mode
     js2-mode
     js2-refactor
     xref-js2
@@ -29,6 +33,7 @@
 
 (mapc #'(lambda (package)
 	  (unless (package-installed-p package)
+	    (package-refresh-contents)
 	    (package-install package)))
       myPackages)
 
@@ -37,6 +42,54 @@
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 (global-set-key (kbd "C-x g") 'magit-status)
+
+(global-set-key (kbd "M-o") 'ace-window)
+
+(require 'smartparens-config)
+(smartparens-global-mode 1)
+(define-key smartparens-mode-map (kbd "<tab>") 'forward-char)
+
+
+;; Does not work currently
+(require 'multiple-cursors)
+(global-set-key (kbd "C-x a C-n") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-x a C-p") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-x a M-f") 'mc/mark-next-like-this-word)
+(global-set-key (kbd "C-x a M-b") 'mc/mark-previous-like-this-word)
+(global-set-key (kbd "C-x a C-s") 'mc/mark-all-symbols-like-this)
+
+;; Helm config
+(require 'helm)
+(require 'helm-config)
+(global-set-key (kbd "M-x") #'helm-M-x)
+(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "C-x b") 'helm-mini)
+(global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
+
+;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+(global-set-key (kbd "C-c h") 'helm-command-prefix)
+(global-unset-key (kbd "C-x c"))
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+(define-key helm-map (kbd "C-z") 'helm-select-action)
+
+(when (executable-find "curl")
+  (setq helm-google-suggest-use-curl-p t))
+
+(setq helm-split-window-in-side-p t
+      helm-M-x-fuzzy-match t
+      helm-buffers-fuzzy-matching t
+      helm-recentf-fuzzy-match t)
+
+(setq helm-autoresize-max-height 0)
+(setq helm-autoresize-min-height 20)
+(helm-autoresize-mode 1)
+
+(helm-mode 1)
 
 ;; Python
 (elpy-enable)
@@ -79,6 +132,9 @@
 ;; HTML/CSS
 (add-hook 'sgml-mode-hook 'emmet-mode)
 (add-hook 'css-mode-hook 'emmet-mode)
+
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
 
 ;; Typescript
 (defun setup-tide-mode ()
