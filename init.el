@@ -41,14 +41,13 @@
 ;; Basic Customization
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
+
 (global-set-key (kbd "C-x g") 'magit-status)
 
 (global-set-key (kbd "M-o") 'ace-window)
 
 (require 'smartparens-config)
 (smartparens-global-mode 1)
-(define-key smartparens-mode-map (kbd "<tab>") 'forward-char)
-
 
 ;; Does not work currently
 (require 'multiple-cursors)
