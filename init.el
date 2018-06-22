@@ -29,6 +29,7 @@
     yoshi-theme
     typescript-mode
     tide
+    omnisharp
     ))
 
 (mapc #'(lambda (package)
@@ -148,6 +149,17 @@
 
 (add-hook 'before-save-hook 'tide-format-before-save)
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+
+;; C# coding
+
+(add-hook 'csharp-mode-hook 'omnisharp-mode)
+(eval-after-load
+    'company
+  '(add-to-list 'company-backends 'company-omnisharp))
+
+(add-hook 'csharp-mode-hook #'company-mode)
+(add-hook 'csharp-mode-hook #'flycheck-mode)
 
 
 ;;(setq inhibit-startup-message t) ;; hide startup message
