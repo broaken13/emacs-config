@@ -8,6 +8,7 @@
 
 (defvar myPackages
   '(better-defaults
+    which-key
     helm
     magit
     company
@@ -49,6 +50,8 @@
 
 (require 'smartparens-config)
 (smartparens-global-mode 1)
+
+(which-key-mode)
 
 ;; Does not work currently
 (require 'multiple-cursors)
