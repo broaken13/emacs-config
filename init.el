@@ -12,6 +12,7 @@
     helm
     magit
     company
+    company-quickhelp
     ace-window
     multiple-cursors
     smartparens
@@ -40,8 +41,11 @@
 
 
 ;; Basic Customization
+(require 'better-defaults)
+
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
+(company-quickhelp-mode)
 
 (global-set-key (kbd "C-x g") 'magit-status)
 
@@ -161,6 +165,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(company-quickhelp-color-background "midnight blue")
+ '(company-quickhelp-color-foreground "light gray")
  '(package-selected-packages (quote (material-theme better-defaults))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
