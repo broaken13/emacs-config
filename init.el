@@ -160,14 +160,25 @@
 
 ;; C# coding
 
-(add-hook 'csharp-mode-hook 'omnisharp-mode)
+
 (eval-after-load
     'company
   '(add-to-list 'company-backends 'company-omnisharp))
 
-(add-hook 'csharp-mode-hook #'flycheck-mode)
+(defun csharp-programming-setup ()
+  "My csharp programming setup"
+  (omnisharp-mode)
+  (flycheck-mode)
+  
+  (setq c-syntactic-indentation t)
+  (c-set-style "ellemtel")
+  (setq c-basic-offset 4)
+  (setq tab-width 4)
+  (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
+  (local-set-key (kbd "C-c C-c") 'recompile)
+  )
 
-
+(add-hook 'csharp-mode-hook 'csharp-programming-setup)
 ;;(setq inhibit-startup-message t) ;; hide startup message
 (load-theme 'yoshi t) ;; load theme
 (global-linum-mode t) ;; line numbers global
