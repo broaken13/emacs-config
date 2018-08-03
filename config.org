@@ -49,9 +49,7 @@ Keep custom config separate from init file.
 Adjust search keybindings.
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-s") 'isearch-forward-regexp)
   (global-set-key (kbd "C-r") 'isearch-backward-regexp)
-  (global-set-key (kbd "C-M-s") 'isearch-forward)
   (global-set-key (kbd "C-M-r") 'isearch-backward)
 #+END_SRC
 
@@ -120,7 +118,7 @@ But only in programming modes.
       (horizontal-scroll-bar-mode -1))
     (scroll-bar-mode -1))
 #+END_SRC
-
+    
 * Global packages
 ** Dimnish
 Diminish to hide stuff from the bar.
@@ -180,6 +178,18 @@ Diminish to hide stuff from the bar.
     :diminish smartparens-mode)
 #+END_SRC
 
+** Avy
+#+BEGIN_SRC emacs-lisp
+  (use-package avy
+               :ensure t
+               :bind ("M-s" . avy-goto-char))
+#+END_SRC
+** Swiper
+#+BEGIN_SRC emacs-lisp
+  (use-package swiper
+               :ensure t
+               :bind ("C-s" . 'swiper))
+#+END_SRC
 * Helm
 I like helm
 
