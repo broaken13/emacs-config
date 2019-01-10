@@ -11,7 +11,7 @@
     ("6c7db7fdf356cf6bde4236248b17b129624d397a8e662cf1264e41dab87a4a9a" default)))
  '(package-selected-packages
    (quote
-    (org-bullets company-jedi color-identifiers-mode undo-tree try use-package yoshi-theme xref-js2 which-key web-mode tide smartparens py-autopep8 omnisharp material-theme magit js2-refactor impatient-mode helm emmet-mode elpy company-tern company-quickhelp better-defaults ace-window ac-js2))))
+    (helm-projectile projectile-helm projectile ox-twbs org-bullets company-jedi color-identifiers-mode undo-tree try use-package yoshi-theme xref-js2 which-key web-mode tide smartparens py-autopep8 omnisharp material-theme magit js2-refactor impatient-mode helm emmet-mode elpy company-tern company-quickhelp better-defaults ace-window ac-js2))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

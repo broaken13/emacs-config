@@ -43,6 +43,7 @@ Keep custom config separate from init file.
   (setq-default indent-tabs-mode nil)
   (setq tab-width 2)
   (setq-default tab-always-indent 'complete)
+  (setq-default tab-width 2)
 #+END_SRC
 
 ** Search
@@ -118,8 +119,14 @@ But only in programming modes.
       (horizontal-scroll-bar-mode -1))
     (scroll-bar-mode -1))
 #+END_SRC
-    
+
 * Global packages
+** Ivy
+Requirement for others.
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy
+    :ensure t)
+#+END_SRC
 ** Dimnish
 Diminish to hide stuff from the bar.
 #+BEGIN_SRC emacs-lisp
@@ -179,16 +186,30 @@ Diminish to hide stuff from the bar.
 #+END_SRC
 
 ** Avy
+I want my avy-goto-char to put me in front of the char.
+
 #+BEGIN_SRC emacs-lisp
   (use-package avy
                :ensure t
-               :bind ("M-s" . avy-goto-char))
+               :bind
+               ("M-g g" . avy-goto-line))
+
+  (defun bryce/goto-char (char)
+    (interactive (list (read-char "char: " t)))
+    (avy-goto-char char)
+    (forward-char)
+    )
+
+  (global-set-key (kbd "M-s") 'bryce/goto-char)
+
 #+END_SRC
 ** Swiper
 #+BEGIN_SRC emacs-lisp
   (use-package swiper
-               :ensure t
-               :bind ("C-s" . 'swiper))
+    :ensure t)
+  (use-package swiper-helm
+    :ensure t
+    :bind ("C-s" . 'swiper-helm))
 #+END_SRC
 * Helm
 I like helm
@@ -217,7 +238,8 @@ I like helm
               (setq helm-autoresize-max-height 0
                     helm-autoresize-min-height 20)
               (helm-autoresize-mode 1)
-              (helm-mode 1)))
+              (helm-mode 1))
+    :diminish (helm-mode))
 
   (global-unset-key (kbd "C-x c"))
   (global-set-key (kbd "C-c h") 'helm-command-prefix)
@@ -285,7 +307,8 @@ Provides tooltips for company completions.
     :init
     (add-hook 'after-init-hook 'global-flycheck-mode)
     :config
-    (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
+    (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+    :diminish (flycheck-mode))
 #+END_SRC
 * Magit
 Only git interface better than command line. (Just barely)
@@ -295,6 +318,20 @@ Only git interface better than command line. (Just barely)
     :ensure t
     :bind ("C-x g" . magit-status))
 #+END_SRC
+
+* Projectile
+  #+BEGIN_SRC emacs-lisp
+    (use-package projectile
+      :ensure t
+      :bind ("C-c p" . 'projectile-command-map)
+      :config (projectile-mode +1)
+      :diminish (projectile-mode))
+
+    (use-package helm-projectile
+      :ensure t
+      :config (helm-projectile-on))
+#+END_SRC
+
 * Eldoc
 #+BEGIN_SRC emacs-lisp
   (use-package eldoc
