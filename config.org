@@ -358,13 +358,6 @@ My favorite
     (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode)))
 #+END_SRC
 
-*** Tern for company
-#+BEGIN_SRC emacs-lisp
-  (use-package company-tern
-    :ensure t
-    :init (add-to-list 'company-backends 'company-tern))
-#+END_SRC
-
 *** Js2 refactor
 #+BEGIN_SRC emacs-lisp
   (use-package js2-refactor
