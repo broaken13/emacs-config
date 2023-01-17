@@ -9,4 +9,4 @@ url
 .cache
 config.el
 network-security.data
-projectile-bookmarks.eld
+projectile-bookmarks.eld.lsp-session-v1
