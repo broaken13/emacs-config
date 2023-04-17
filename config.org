@@ -281,6 +281,11 @@ Flyspell does spell check for us
     :config (setq ispell-local-dictionary "en_US"))
 #+end_src
 
+** Delete Selection When Typing
+#+begin_src emacs-lisp
+  (delete-selection-mode t)
+#+end_src
+
 * Programming
 
 Here we turn on line numbers when programming.
@@ -310,9 +315,13 @@ This sets up the basic LSP functionality. Actual language servers will need to b
   (use-package lsp-mode
     :init
     (setq lsp-keymap-prefix "C-c l")
-    :hook ;; We'll want to add some hooks here later for languages
-    (lsp-mode . bryce/setup-lsp-mode)
-    (lsp-mode . lsp-enable-which-key-integration)
+    (setq lsp-restart 'auto-restart)
+    :hook (;; We'll want to add some hooks here later for languages
+           (lsp-mode . bryce/setup-lsp-mode)
+           (lsp-mode . lsp-enable-which-key-integration)
+           (web-mode . lsp-deferred)
+           (rust-mode . lsp-deferred)
+           )
     :commands (lsp lsp-deferred))
 
   (use-package lsp-ui
@@ -379,16 +388,30 @@ Flycheck checks our code on the fly
 #+begin_src emacs-lisp
   (use-package web-mode
     :ensure t
-    :mode (("\\.html" . web-mode)
-           ("\\.htm" . web-mode))
-    :config (setq web-mode-markup-indentation 2))
+    :mode (("\\.html\\" . web-mode)
+           ("\\.htm\\"  . web-mode)
+           ("\\.css\\"  . web-mode))
+    :commands web-mode)
 #+end_src
 
 *** JS
 #+begin_src emacs-lisp
   (use-package js2-mode
     :ensure t
-    :mode (("\\.js" . js2-mode)))
+    :mode (("\\.js" . js2-mode)
+           ("\\.jsx" . js2-mode)))
+#+end_src
+
+*** Rust
+#+begin_src emacs-lisp
+  (use-package rustic
+    :config
+    (setq rustic-format-on-save-p t)
+    )
+#+end_src
+*** JSON
+#+begin_src emacs-lisp
+  (use-package json-mode)
 #+end_src
 
 * Org Mode
